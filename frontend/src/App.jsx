@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchCart } from './redux/slices/cartSlice';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from './components/Layout';
@@ -13,6 +13,7 @@ import BecomeSellerPage from './pages/BecomeSeller';
 import PaymentSuccess from './pages/PaymentSuccess';
 import axios from 'axios';
 import { setIsLogin, setUserName } from './redux/slices/userSlice';
+import SellerDashboard from './pages/Dashborad';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const App = () => {
             <Route path='register' element={<Register />} />
             <Route path='cart' element={<Cart />} />
             <Route path='payment' element={<PaymentSuccess />} />
+            <Route path='dashboard' element={<SellerDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>

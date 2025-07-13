@@ -8,7 +8,10 @@ const _config = {
             JWT_SECRET: process.env.JWT_SECRET,
             KEY_ID: process.env.KEY_ID,
             RAZORPAY_SECRET: process.env.RAZORPAY_SECRET,
-            GOOGLE_SECRET_KEY: process.env.GOOGLE_SECRET_KEY
+            GOOGLE_SECRET_KEY: process.env.GOOGLE_SECRET_KEY,
+            NODE_ENV: process.env.NODE_ENV,
+            CLIENT_DEV_URL: process.env.CLIENT_DEV_URL,
+            CLIENT_PROD_URL: process.env.CLIENT_PROD_URL
 }
 
 export default Object.freeze(_config);
