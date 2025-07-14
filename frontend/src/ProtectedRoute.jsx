@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom";
@@ -12,4 +11,4 @@ const ProtectedRoute = ({ children }) => {
             return children;
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;

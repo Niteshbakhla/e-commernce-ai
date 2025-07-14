@@ -15,8 +15,8 @@ import axios from 'axios';
 import { setIsLogin, setUserName } from './redux/slices/userSlice';
 import SellerDashboard from './pages/Dashborad';
 import axiosinstance from './axios/axios';
-import ProtectedRoute from './protectedRoute';
 import MyOrdersPage from './pages/MyOrdersPage';
+import ProtectedRoute from './ProtectedRoute';
 
 const App = () => {
   const dispatch = useDispatch();
