@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import toast from "react-hot-toast";
@@ -11,6 +10,7 @@ const Login = () => {
             const [user, setUser] = useState({ email: "", password: "" });
             const navigate = useNavigate();
             const dispatch = useDispatch();
+            const [isLoading, setIsLoading] = useState(false);
 
             const handleChange = (e) => {
                         setUser({ ...user, [e.target.name]: e.target.value });
@@ -18,6 +18,7 @@ const Login = () => {
 
             const handleSubmit = async (e) => {
                         e.preventDefault();
+                        setIsLoading(true);
                         try {
                                     const { data } = await axiosinstance.post("/auth/login", user, {
                                                 withCredentials: true,
@@ -26,8 +27,9 @@ const Login = () => {
                                     setUser({ email: "", password: "" });
                                     dispatch(setIsLogin(true))
                                     navigate("/")
-
+                                    setIsLoading(false);
                         } catch (err) {
+                                    setIsLoading(false)
                                     console.log("Login error:", err);
                                     toast.error(err.response.data.message)
                         }
