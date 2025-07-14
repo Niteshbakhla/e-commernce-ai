@@ -1,2 +1,29 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+@theme {
+            /* ONE BUTTON COLOR - All buttons use this */
+            --color-button: #6366f1;
+            /* Soft Indigo (ALL buttons) */
+            --color-button-hover: #4f46e5;
+            /* Darker on hover */
+            --color-button-light: #818cf8;
+            /* Light variant if needed */
+
+            /* MATCHING TEXT COLORS */
+            --color-text: #475569;
+            /* Main text (cool gray) */
+            --color-text-light: #94a3b8;
+            /* Light text (matches button tone) */
+            --color-accent-text: #6366f1;
+            /* Accent text (same as button) */
+            --color-white: #ffffff;
+            /* Button text */
+
+            /* MATCHING BACKGROUND TONES */
+            --color-background: #f8fafc;
+            /* Light background (cool tone) */
+            --color-surface: #ffffff;
+            /* Cards/surfaces */
+}

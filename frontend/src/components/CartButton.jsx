@@ -10,7 +10,7 @@ const CartButton = ({ productId, hanldeAddToCart }) => {
                         <div>
                                     {
                                                 isCartExist ? <button onClick={() => navigate("/cart")} className="btn btn-sm btn-primary active:scale-[0.9]">Go to Cart</button> :
-                                                            <button onClick={() => { hanldeAddToCart(productId) }} className="btn btn-sm btn-primary active:scale-[0.9]">Add to Cart</button>
+                                                            <button onClick={() => { hanldeAddToCart(productId) }} className="btn btn-sm bg-primary text-white   hover:bg-button-hover  active:scale-[0.9]">Add to Cart</button>
                                     }
 
 

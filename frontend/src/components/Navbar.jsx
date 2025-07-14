@@ -53,8 +53,8 @@ const Navbar = () => {
                         <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-10 flex gap-2">
                                     {/* Left - Logo */}
                                     <div className="flex-1">
-                                                <Link to="/" className="text-xl font-bold text-primary">
-                                                            ShopBrro
+                                                <Link to="/" className="text-xl font-bold         ">
+                                                            ToneHub
                                                 </Link>
                                     </div>
 

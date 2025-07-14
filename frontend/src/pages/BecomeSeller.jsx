@@ -106,7 +106,7 @@ const ProductUploadForm = () => {
                                                                                     <button
                                                                                                 onClick={() => handleAISuggest("name")}
                                                                                                 disabled={loading.name}
-                                                                                                className="px-4 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
+                                                                                                className="px-4 py-2 bg-button-light hover:bg-button-hover disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
                                                                                     >
                                                                                                 {loading.name ? (
                                                                                                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -171,7 +171,7 @@ const ProductUploadForm = () => {
                                                                                     <button
                                                                                                 onClick={() => handleAISuggest('description')}
                                                                                                 disabled={loading.description}
-                                                                                                className="px-4 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
+                                                                                                className="px-4 py-2 bg-button-light hover:bg-button-hover disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
                                                                                     >
                                                                                                 {loading.description ? (
                                                                                                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -219,7 +219,7 @@ const ProductUploadForm = () => {
                                                                                     <button
                                                                                                 onClick={() => handleAISuggest('price')}
                                                                                                 disabled={loading.price}
-                                                                                                className="px-4 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
+                                                                                                className="px-4 py-2 bg-button-light hover:bg-button-hover disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
                                                                                     >
                                                                                                 {loading.price ? (
                                                                                                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -253,7 +253,7 @@ const ProductUploadForm = () => {
                                                             <button
                                                                         onClick={handleSubmit}
                                                                         type="submit"
-                                                                        className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                                                        className="w-full py-3 bg-button hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                                                             >
                                                                         Add Product
                                                             </button>

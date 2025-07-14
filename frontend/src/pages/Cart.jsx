@@ -156,7 +156,7 @@ const Cart = () => {
                                                                                     <span>₹{cartItems?.bill ? cartItems.bill.toFixed(2) : " 0"}</span>
                                                                         </div>
                                                                         <div className="divider"></div>
-                                                                        <button onClick={() => handleBuyNow(cartItems)} className="w-full bg-purple-600 mb-2 hover:bg-purple-700 active:scale-[0.9]  transition-colors text-white font-semibold py-3 rounded-md shadow-md transform flex justify-center hover:scale-105 duration-200">{isLoading ? <LoaderCircle className="animate-spin" /> : "Placer Order"}</button>
+                                                                        <button onClick={() => handleBuyNow(cartItems)} className="w-full bg-button mb-2 hover:bg-button-hover active:scale-[0.9]  transition-colors text-white font-semibold py-3 rounded-md shadow-md transform flex justify-center hover:scale-105 duration-200">{isLoading ? <LoaderCircle className="animate-spin" /> : "Placer Order"}</button>
                                                                         <button
                                                                                     className="w-full   transition-colors cursor-pointer text-gray-600 border border-pink-300  font-semibold py-3 rounded-md shadow-md transform hover:scale-105 duration-200"
                                                                                     onClick={() => navigate("/")}
