@@ -3,28 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setIsLogin } from "../redux/slices/userSlice";
 import UserMenu from "./UserButton";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { setSearchProduct } from "../redux/slices/cartSlice";
 import axiosinstance from "../axios/axios";
+import { Loader } from "lucide-react";
 
 
 const Navbar = () => {
             const [searchItem, setSearchItem] = useState("");
             const { isLogin, userName } = useSelector((state) => state.user);
+            const [isLoading, setIsLoading] = useState(false);
             const dispatch = useDispatch()
             const navigate = useNavigate();
             const location = useLocation();
             const path = ["/login", "/register", "/seller"];
 
             const logoutHandler = async () => {
+                        setIsLoading(true);
                         try {
                                     const { data } = await axiosinstance.get("/auth/logout", { withCredentials: true })
                                     toast.success(data.message)
                                     dispatch(setIsLogin(false))
                                     navigate("/login")
+                                    setIsLoading(false)
                         } catch (error) {
                                     console.log("Logout error:", error)
                                     toast.error(error.response.data.message);
+                                    setIsLoading(false)
                         }
             }
 
@@ -78,7 +83,9 @@ const Navbar = () => {
 
                                                             {
                                                                         isLogin ? <Link onClick={logoutHandler} className="btn btn-outline btn-primary">
-                                                                                    logout
+                                                                                    {
+                                                                                                isLoading ? <Loader className="text-black animate-spin" /> : " logout"
+                                                                                    }
                                                                         </Link> : <Link to="/login" className="btn btn-outline btn-primary">
                                                                                     Login
                                                                         </Link>
