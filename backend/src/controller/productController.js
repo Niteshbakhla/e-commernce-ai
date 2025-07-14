@@ -7,6 +7,9 @@ import CustomError from "../utils/customError.js";
 import { parseSuggestions, cleanAIText } from "../utils/parseText.js";
 
 export const createProduct = asyncHandler(async (req, res) => {
+            console.log(req.file)
+            return console.log(req.body);
+
             const { productName, productTitle, productImage, productPrice, productDescription, productBrand } = req.body;
             if (!productName || !productTitle || !productImage || !productPrice || !productDescription || !productBrand) {
                         throw new CustomError("All fields are required", 400);
