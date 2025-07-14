@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 
 export const register = asyncHandler(async (req, res) => {
-            const { name, email, password } = req.body;
+            const { name, email, password, role } = req.body;
             if (!name || !email || !password) {
                         throw new CustomError("All fields are required", 400);
             }
@@ -15,7 +15,7 @@ export const register = asyncHandler(async (req, res) => {
                         throw new CustomError("User already exist", 409);
             }
 
-            const user = await User.create({ name, email, password });
+            const user = await User.create({ name, email, password, role });
             res.status(201).json({ message: "Register successfully!", user })
 });
 

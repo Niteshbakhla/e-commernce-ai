@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import axiosinstance from '../axios/axios';
 import toast from 'react-hot-toast';
 
 
@@ -31,6 +31,7 @@ const ProductUploadForm = () => {
             };
 
             const handleFileChange = (e) => {
+
                         setFormData(prev => ({
                                     ...prev,
                                     productImage: e.target.files[0]
@@ -38,7 +39,6 @@ const ProductUploadForm = () => {
             };
 
             const handleAISuggest = async (field) => {
-
                         setLoading(prev => ({ ...prev, [field]: true }));
                         try {
 
@@ -46,7 +46,7 @@ const ProductUploadForm = () => {
                                                 type: field,
                                                 data: formData
                                     }
-                                    const { data } = await axios.post("http://localhost:3000/api/v1/user/product-ai", AIData, { withCredentials: true });
+                                    const { data } = await axiosinstance.post("/v1/user/product-ai", AIData, { withCredentials: true });
                                     const { fieldName } = data.content;
                                     if (fieldName === "name") {
                                                 setAIContent(data.content.text);
@@ -61,16 +61,22 @@ const ProductUploadForm = () => {
                         }
             };
 
-            console.log(aiContent)
-
-
             const handleSubmit = async () => {
+                        const productData = new FormData();
+                        productData.append("productName", formData.productName);
+                        productData.append("productImage", formData.productImage);
+                        productData.append("productDescription", formData.productDescription);
+                        productData.append("productPrice", formData.productPrice);
+                        console.log(productData)
                         try {
-                                    const { data } = await axios.post("http://localhost:3000/api/v1/admin/product", formData, { withCredentials: true });
-                                    return console.group(data)
-                                    console.log(data.product);
+                                    const { data } = await axiosinstance.post("/v1/admin/product", productData, {
+                                                headers: {
+                                                            "Content-Type": "multipart/form-data"
+                                                }
+                                    }, { withCredentials: true });
                         } catch (error) {
-                                    consolelog("Submit error:-", error);
+                                    toast.error(error.response.data.message)
+                                    console.log("Submit error:-", error);
                         }
             }
 

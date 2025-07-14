@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import toast from "react-hot-toast";
+import axiosinstance from "../axios/axios";
 
 const Register = () => {
-            const [user, setUser] = useState({ name: "", email: "", password: "" });
+            const [user, setUser] = useState({ name: "", email: "", password: "", role: "user" });
             const navigate = useNavigate();
 
             const handleChange = (e) => {
@@ -14,9 +14,8 @@ const Register = () => {
 
             const handleSubmit = async (e) => {
                         e.preventDefault();
-
                         try {
-                                    const res = await axios.post("http://localhost:3000/api/auth/register", user);
+                                    const res = await axiosinstance.post("/auth/register", user);
                                     toast.success(res.data.message);
                                     navigate("/login")
                         } catch (err) {
@@ -47,6 +46,14 @@ const Register = () => {
                                                             <div className="form-control mb-4">
                                                                         <label className="label">Password</label>
                                                                         <input required type="password" name="password" onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400" />
+                                                            </div>
+                                                            <div className="form-control mb-4">
+                                                                        <label className="label">Role</label>
+                                                                        {/* <input required type="password" name="password" onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400" /> */}
+                                                                        <select name="role" className="w-full py-2 mt-1" onChange={handleChange}>
+                                                                                    <option value="user">User</option>
+                                                                                    <option value="seller">Seller</option>
+                                                                        </select>
                                                             </div>
                                                             <button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 transition-colors text-white font-semibold py-3 rounded-md shadow-md transform hover:scale-105 duration-200">Register</button>
                                                 </form>

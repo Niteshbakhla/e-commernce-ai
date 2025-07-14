@@ -1,7 +1,6 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { fetchCart, setCartIds } from '../redux/slices/cartSlice';
 
 const CartButton = ({ productId, hanldeAddToCart }) => {
             const navigate = useNavigate();

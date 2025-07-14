@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { isAuthenticated } from "../middleware/authenticated.js";
+import { isAuthenticated, isAuthorized } from "../middleware/authenticated.js";
 import { aiGenerateContent, cartDelete, getAllProducts, getUserCart, getWishList, getWishListIds, productAddCart, searchItem, wishListAdd } from "../controller/productController.js";
+import { getUserOrder } from "../controller/orderController.js";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.route("/wishlist").get(isAuthenticated, getWishList);
 router.route("/wishlistId").get(isAuthenticated, getWishListIds);
 router.route("/product/search").get(isAuthenticated, searchItem);
 router.route("/product-ai").post(isAuthenticated, aiGenerateContent);
+router.route("/product/order").get(isAuthenticated, getUserOrder);
 
 export default router;

@@ -1,7 +1,5 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleWishlist } from '../redux/slices/wishlistSlice';
-import toast from 'react-hot-toast';
 
 const HeartButton = ({ productId }) => {
             const dispatch = useDispatch();
@@ -10,9 +8,6 @@ const HeartButton = ({ productId }) => {
             const handleClick = () => {
                         dispatch(toggleWishlist(productId))
             }
-
-
-
             return (
                         <div>
                                     {

@@ -25,6 +25,10 @@ const productModel = new mongoose.Schema({
             productBrand: {
                         type: String,
                         required: true
+            },
+            owner: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "User"
             }
 
 }, { timestamps: true });

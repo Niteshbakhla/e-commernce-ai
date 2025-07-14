@@ -1,25 +1,26 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";// assuming this exists
 import { Link, useNavigate } from "react-router-dom";
 import { addToCart, fetchCart } from "../redux/slices/cartSlice";
 import { motion } from "framer-motion";
 import { useRazorpay } from "react-razorpay"
-import axios from "axios";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axiosinstance from "../axios/axios";
+import { LoaderCircle } from "lucide-react";
 
 const Cart = () => {
             const dispatch = useDispatch();
             const navigate = useNavigate();
             const cartItems = useSelector((state) => state.cart.cartItems);
+            const [isLoading, setIsLoading] = useState(false)
 
 
             const { Razorpay } = useRazorpay();
 
             const handleBuyNow = async (productInfo) => {
-
+                        setIsLoading(true)
                         try {
-                                    const { data } = await axios.post("http://localhost:3000/api/v1/create-order", productInfo, { withCredentials: true })
+                                    const { data } = await axiosinstance.post("/v1/create-order", productInfo, { withCredentials: true })
                                     const { amount, currency, id, notes: { mongoOrderId } } = data.order;
                                     const RazorpayOrderOptions = {
                                                 key: "rzp_test_jsP25tWjtceUAz",
@@ -32,11 +33,12 @@ const Cart = () => {
                                                 handler: async function (response) {
 
                                                             const orderInfo = { ...response, ...productInfo, mongoOrderId };
-                                                            const { data } = await axios.post("http://localhost:3000/api/v1/verify-payment", orderInfo, { withCredentials: true });
+                                                            const { data } = await axiosinstance.post("/v1/verify-payment", orderInfo, { withCredentials: true });
                                                             if (data.success) {
                                                                         toast.success("Thanks for purchasing")
                                                                         dispatch(fetchCart())
                                                                         navigate("/payment");
+
                                                             }
                                                 },
                                                 prefill: {
@@ -51,16 +53,18 @@ const Cart = () => {
 
                                     const rzp = new Razorpay(RazorpayOrderOptions);
                                     rzp.open();
+                                    setIsLoading(false)
 
                         } catch (error) {
                                     console.error("Payment error:", error);
-                                    alert("Failed to initiate payment. Please try again.");
+                                    toast.error("Failed to initiate payment. Please try again.");
+                                    setIsLoading(false);
                         }
             }
 
             const deleteCart = async (id) => {
                         try {
-                                    const { data } = await axios.delete(`http://localhost:3000/api/v1/user/product/${id}`, { withCredentials: true })
+                                    const { data } = await axiosinstance.delete(`/v1/user/product/${id}`, { withCredentials: true })
 
                                     dispatch(fetchCart());
                                     toast.success(data.message)
@@ -152,7 +156,7 @@ const Cart = () => {
                                                                                     <span>₹{cartItems?.bill ? cartItems.bill.toFixed(2) : " 0"}</span>
                                                                         </div>
                                                                         <div className="divider"></div>
-                                                                        <button onClick={() => handleBuyNow(cartItems)} className="w-full bg-purple-600 mb-2 hover:bg-purple-700 active:scale-[0.9] transition-colors text-white font-semibold py-3 rounded-md shadow-md transform hover:scale-105 duration-200">Place Order</button>
+                                                                        <button onClick={() => handleBuyNow(cartItems)} className="w-full bg-purple-600 mb-2 hover:bg-purple-700 active:scale-[0.9]  transition-colors text-white font-semibold py-3 rounded-md shadow-md transform flex justify-center hover:scale-105 duration-200">{isLoading ? <LoaderCircle className="animate-spin" /> : "Placer Order"}</button>
                                                                         <button
                                                                                     className="w-full   transition-colors cursor-pointer text-gray-600 border border-pink-300  font-semibold py-3 rounded-md shadow-md transform hover:scale-105 duration-200"
                                                                                     onClick={() => navigate("/")}

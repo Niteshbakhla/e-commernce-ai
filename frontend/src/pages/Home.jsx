@@ -6,6 +6,7 @@ import { addToCart } from "../redux/slices/cartSlice";
 import { setWishlistIds } from "../redux/slices/wishlistSlice";
 import HeartButton from "../components/HeartButton";
 import CartButton from "../components/CartButton";
+import axiosinstance from "../axios/axios";
 
 const HomePage = () => {
             const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ const HomePage = () => {
             useEffect(() => {
                         const fetchProducts = async () => {
                                     try {
-                                                const { data } = await axios.get("http://localhost:3000/api/v1/user/product", { withCredentials: true })
+                                                const { data } = await axiosinstance.get("/v1/user/product", { withCredentials: true })
                                                 setProducts(data.product);
                                     } catch (err) {
                                                 setError(err.message);
@@ -33,7 +34,7 @@ const HomePage = () => {
 
             useEffect(() => {
                         const fetchWishlist = async () => {
-                                    const { data } = await axios.get("http://localhost:3000/api/v1/user/wishlistid", { withCredentials: true });
+                                    const { data } = await axiosinstance.get("/v1/user/wishlistid", { withCredentials: true });
                                     dispatch(setWishlistIds(data.wishlistIds))
                         }
                         fetchWishlist();

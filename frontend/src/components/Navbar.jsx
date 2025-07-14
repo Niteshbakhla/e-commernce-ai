@@ -1,12 +1,11 @@
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setIsLogin } from "../redux/slices/userSlice";
 import UserMenu from "./UserButton";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { setSearchProduct } from "../redux/slices/cartSlice";
+import axiosinstance from "../axios/axios";
 
 
 const Navbar = () => {
@@ -14,10 +13,12 @@ const Navbar = () => {
             const { isLogin, userName } = useSelector((state) => state.user);
             const dispatch = useDispatch()
             const navigate = useNavigate();
+            const location = useLocation();
+            const path = ["/login", "/register", "/seller"];
 
             const logoutHandler = async () => {
                         try {
-                                    const { data } = await axios.get("http://localhost:3000/api/auth/logout", { withCredentials: true })
+                                    const { data } = await axiosinstance.get("/auth/logout", { withCredentials: true })
                                     toast.success(data.message)
                                     dispatch(setIsLogin(false))
                                     navigate("/login")
@@ -31,7 +32,7 @@ const Navbar = () => {
             useEffect(() => {
                         const fetchSearchProduct = async () => {
                                     try {
-                                                const { data } = await axios.get("http://localhost:3000/api/v1/user/product/search", {
+                                                const { data } = await axiosinstance.get("/v1/user/product/search", {
                                                             params: { searchItem },
                                                             withCredentials: true
                                                 });
@@ -58,14 +59,16 @@ const Navbar = () => {
                                     </div>
 
                                     {/* Center - Search Bar (visible on md and above) */}
-                                    <div className="flex-none w-1/2 max-w-xl mx-4 hidden md:flex">
-                                                <input
-                                                            onChange={(e) => setSearchItem(e.target.value)}
-                                                            type="text"
-                                                            placeholder="Search products..."
-                                                            className="input input-bordered w-full"
-                                                />
-                                    </div>
+                                    {
+                                                !path.includes(location.pathname) && <div className="flex-none w-1/2 max-w-xl mx-4 hidden md:flex">
+                                                            <input
+                                                                        onChange={(e) => setSearchItem(e.target.value)}
+                                                                        type="text"
+                                                                        placeholder="Search products..."
+                                                                        className="input input-bordered w-full"
+                                                            />
+                                                </div>
+                                    }
 
                                     {/* Right - Buttons */}
                                     <div className="flex-none space-x-3 items-center flex">
@@ -104,7 +107,6 @@ const Navbar = () => {
                                                 </div>
 
                                                 {/* Always visible - Seller Button */}
-
                                                 <Link
                                                             to="/seller"
                                                             className="px-4 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2"
@@ -112,7 +114,9 @@ const Navbar = () => {
                                                             Become Seller
                                                 </Link>
                                     </div>
-                                    <UserMenu name={userName} />
+                                    {
+                                                (location.pathname !== "/login" && location.pathname !== "/register") && <UserMenu name={userName} />
+                                    }
                         </div>
             );
 };

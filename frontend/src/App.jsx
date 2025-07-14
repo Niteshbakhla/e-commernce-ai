@@ -14,6 +14,8 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import axios from 'axios';
 import { setIsLogin, setUserName } from './redux/slices/userSlice';
 import SellerDashboard from './pages/Dashborad';
+import axiosinstance from './axios/axios';
+import ProtectedRoute from './protectedRoute';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,8 +26,7 @@ const App = () => {
 
   const isLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/api/auth/me", { withCredentials: true });
-
+      const { data } = await axiosinstance.get("/auth/me", { withCredentials: true });
       dispatch(setIsLogin(data.success))
       dispatch(setUserName(data.user.name));
     } catch (error) {
@@ -47,7 +48,7 @@ const App = () => {
             <Route path='seller' element={<BecomeSellerPage />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
-            <Route path='cart' element={<Cart />} />
+            <Route path='cart' element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route path='payment' element={<PaymentSuccess />} />
             <Route path='dashboard' element={<SellerDashboard />} />
           </Route>
