@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setIsLogin } from "../redux/slices/userSlice";
 import axiosinstance from "../axios/axios";
+import { Loader } from "lucide-react";
 
 const Login = () => {
             const [user, setUser] = useState({ email: "", password: "" });
@@ -66,7 +67,9 @@ const Login = () => {
                                                                         />
                                                             </div>
                                                             <button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 transition-colors text-white font-semibold py-3 rounded-md shadow-md transform hover:scale-105 duration-200">
-                                                                        Login
+                                                                        {
+                                                                                    isLoading ? <Loader className="animate-spin" /> : "Login"
+                                                                        }
                                                             </button>
                                                 </form>
 
