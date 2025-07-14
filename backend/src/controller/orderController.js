@@ -61,10 +61,8 @@ export const verifyPayment = asyncHandler(async (req, res) => {
             res.status(200).json({ success: true, message: "Payment verified and order updated" });
 });
 
-
 export const getUserOrder = asyncHandler(async (req, res) => {
             const userId = req.user.id;
-
             const orders = await Order.find({ userId, paymentStatus: "paid" }).populate("item.productId");
             if (orders.length === 0) {
                         throw new CustomError("No orders found")

@@ -16,6 +16,7 @@ import { setIsLogin, setUserName } from './redux/slices/userSlice';
 import SellerDashboard from './pages/Dashborad';
 import axiosinstance from './axios/axios';
 import ProtectedRoute from './protectedRoute';
+import MyOrdersPage from './pages/MyOrdersPage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const App = () => {
             <Route path='cart' element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route path='payment' element={<PaymentSuccess />} />
             <Route path='dashboard' element={<SellerDashboard />} />
+            <Route path='/order' element={<MyOrdersPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
