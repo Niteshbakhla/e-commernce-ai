@@ -35,7 +35,12 @@ export const login = asyncHandler(async (req, res) => {
                         throw new CustomError("Invalid credentials", 404)
             }
             const token = jwt.sign({ id: existingUser._id, role: existingUser.role }, config.JWT_SECRET)
-            res.cookie("userToken", token);
+            res.cookie("userToken", token, {
+                        httpOnly: true,    // prevents JS access to cookie (recommended for tokens)
+                        secure: config.NODE_ENV==="production",      // cookie only sent over HTTPS
+                        sameSite: "none" // helps prevent CSRF (adjust to "lax" or "none" if cross-site)
+            });
+
 
             const user = {
                         id: existingUser._id,
