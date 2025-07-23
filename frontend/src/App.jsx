@@ -28,10 +28,10 @@ const App = () => {
   const isLogin = async () => {
     try {
       const { data } = await axiosinstance.get("/auth/me", { withCredentials: true });
-      dispatch(setIsLogin(data.success))
+      dispatch(setIsLogin(data.success));
       dispatch(setUserName(data.user.name));
     } catch (error) {
-      console.log("Is me route error:", error)
+      console.log("Is me route error:", error);
     }
   }
 

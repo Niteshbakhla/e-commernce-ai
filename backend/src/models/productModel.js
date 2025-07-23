@@ -11,7 +11,6 @@ const productModel = new mongoose.Schema({
             },
             productImage: {
                         type: String,
-                        required: true
             },
             productPrice: {
                         type: Number,
@@ -26,11 +25,13 @@ const productModel = new mongoose.Schema({
                         type: String,
                         required: true
             },
+            productUrl: {
+                        type: String
+            },
             owner: {
                         type: mongoose.Schema.Types.ObjectId,
                         ref: "User"
             }
-
 }, { timestamps: true });
 
 const Product = mongoose.model("Product", productModel);

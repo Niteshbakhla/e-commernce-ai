@@ -10,7 +10,8 @@ const ProductUploadForm = () => {
                         productDescription: '',
                         productBrand: '',
                         productPrice: '',
-                        productImage: null
+                        productImage: null,
+                        productUrl: ""
             });
 
             const [aiContent, setAIContent] = useState(null);
@@ -66,19 +67,27 @@ const ProductUploadForm = () => {
                         productData.append("productName", formData.productName);
                         productData.append("productImage", formData.productImage);
                         productData.append("productDescription", formData.productDescription);
-                        productData.append("productPrice", formData.productPrice);
-                        console.log(productData)
+                        productData.append("productPrice", String(formData.productPrice)); // ensure string
+                        productData.append("productTitle", formData.productTitle);
+                        productData.append("productBrand", formData.productBrand)
+                        productData.append("productUrl", formData.productUrl)
+
+                        console.log([...productData]); // better way to see what's inside
+
                         try {
-                                    const { data } = await axiosinstance.post("/v1/admin/product", productData, {
-                                                headers: {
-                                                            "Content-Type": "multipart/form-data"
-                                                }
-                                    }, { withCredentials: true });
+                                    const { data } = await axiosinstance.post("/v1/admin/product", productData);
+                                    console.log("Success:", data);
+                                    toast.success(data.message)
                         } catch (error) {
-                                    toast.error(error.response.data.message)
                                     console.log("Submit error:-", error);
+                                    if (error.response?.data?.message) {
+                                                toast.error(error.response.data.message);
+                                    } else {
+                                                toast.error("Something went wrong!");
+                                    }
                         }
             }
+
 
             return (
                         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -247,6 +256,19 @@ const ProductUploadForm = () => {
                                                                                                 Selected: {formData.productImage.name}
                                                                                     </p>
                                                                         )}
+                                                            </div>
+                                                            <div>
+                                                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                                                    Product URL
+                                                                        </label>
+                                                                        <input
+                                                                                    type="text"
+                                                                                    value={formData.productUrl}
+                                                                                    name="productImage"
+                                                                                    onChange={(e) => setFormData(prev => ({ ...prev, productUrl: e.target.value }))}
+                                                                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                                                        />
+
                                                             </div>
 
                                                             {/* Submit Button */}

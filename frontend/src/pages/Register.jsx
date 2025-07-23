@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import toast from "react-hot-toast";
 import axiosinstance from "../axios/axios";
+import axios from "axios";
 
 const Register = () => {
             const [user, setUser] = useState({ name: "", email: "", password: "", role: "user" });
@@ -20,7 +21,7 @@ const Register = () => {
                                     navigate("/login")
                         } catch (err) {
                                     console.log("Register error:", err)
-                                    toast.error(err.response.data.message || "Some went wrong")
+                                    toast.error(err.response?.data.message || "Some went wrong")
                         }
             };
 

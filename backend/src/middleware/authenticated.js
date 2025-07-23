@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 export const isAuthenticated = asyncHandler((req, res, next) => {
             const token = req.cookies.userToken;
+
             if (!token) {
                         throw new CustomError("Unauthorized or not logged In", 401);
             }

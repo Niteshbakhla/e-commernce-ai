@@ -7,18 +7,37 @@ import CustomError from "../utils/customError.js";
 import { parseSuggestions, cleanAIText } from "../utils/parseText.js";
 
 export const createProduct = asyncHandler(async (req, res) => {
-            console.log(req.file)
-            return console.log(req.body);
+            const owner = req.user.id;
+            const {
+                        productName,
+                        productTitle,
+                        productPrice,
+                        productDescription,
+                        productBrand,
+                        productUrl
+            } = req.body;
 
-            const { productName, productTitle, productImage, productPrice, productDescription, productBrand } = req.body;
-            if (!productName || !productTitle || !productImage || !productPrice || !productDescription || !productBrand) {
+            if (!productName || !productTitle || !productPrice || !productDescription || !productBrand) {
                         throw new CustomError("All fields are required", 400);
             }
 
-            const product = await Product.create({ ...req.body });
+            // Choose productImage: either Cloudinary upload or fallback URL
+            const productImage = req.file?.path
 
-            res.status(201).json({ success: true, message: "Product created successfully", product })
+            const product = await Product.create({
+                        productName,
+                        productTitle,
+                        productPrice,
+                        productDescription,
+                        productBrand,
+                        productImage,
+                        owner,
+                        productUrl
+            });
+
+            res.status(201).json({ success: true, message: "Product created successfully", product });
 });
+
 
 export const getAllProducts = asyncHandler(async (req, res) => {
 

@@ -32,7 +32,7 @@ const Login = () => {
                         } catch (err) {
                                     setIsLoading(false)
                                     console.log("Login error:", err);
-                                    toast.error(err.response.data.message)
+                                    toast.error(err.response?.data.message || "Something went wrong")
                         }
             };
 

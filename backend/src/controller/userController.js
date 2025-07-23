@@ -37,8 +37,8 @@ export const login = asyncHandler(async (req, res) => {
             const token = jwt.sign({ id: existingUser._id, role: existingUser.role }, config.JWT_SECRET)
             res.cookie("userToken", token, {
                         httpOnly: true,    // prevents JS access to cookie (recommended for tokens)
-                        secure: config.NODE_ENV==="production",      // cookie only sent over HTTPS
-                        sameSite: "none" // helps prevent CSRF (adjust to "lax" or "none" if cross-site)
+                        secure: config.NODE_ENV === "production",      // cookie only sent over HTTPS
+                        sameSite: config.NODE_ENV === "production" ? "none" : "lax" // helps prevent CSRF (adjust to "lax" or "none" if cross-site)
             });
 
 
@@ -56,7 +56,6 @@ export const logout = asyncHandler(async (req, res) => {
 
 export const isMe = asyncHandler(async (req, res) => {
             const user = await User.findById({ _id: req.user.id }).select("-password")
-            console.log(user)
             if (!user) {
                         throw new CustomError("User not found", 404)
             }

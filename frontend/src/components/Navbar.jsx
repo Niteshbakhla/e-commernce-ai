@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setIsLogin } from "../redux/slices/userSlice";
 import UserMenu from "./UserButton";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, } from "react";
 import { setSearchProduct } from "../redux/slices/cartSlice";
 import axiosinstance from "../axios/axios";
 import { Loader } from "lucide-react";

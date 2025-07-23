@@ -1,9 +1,8 @@
 import axios from "axios";
 
-
 const axiosinstance = axios.create({
-            baseURL: "https://e-commernce-ai.onrender.com/api",
+            baseURL: import.meta.env.VITE_API_URL,
             withCredentials: true
 });
 
-export default axiosinstance
+export default axiosinstance;

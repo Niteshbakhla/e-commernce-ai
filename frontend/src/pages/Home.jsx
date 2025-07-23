@@ -22,6 +22,7 @@ const HomePage = () => {
                                     try {
                                                 const { data } = await axiosinstance.get("/v1/user/product", { withCredentials: true })
                                                 setProducts(data.product);
+                                                console.log(data)
                                     } catch (err) {
                                                 setError(err.message);
                                     } finally {
@@ -72,17 +73,17 @@ const HomePage = () => {
                                                 {!loading &&
                                                             !error &&
                                                             searchProduct.map((product) => (
-
-                                                                        <div key={product._id} className="card bg-base-100 shadow-xl">
-                                                                                    <figure>
+                                                                        <div key={product._id} className="card bg-base-100 shadow-xl border border-black/20">
+                                                                                    <figure className="border m-1 border-black/10">
                                                                                                 <img
-                                                                                                            src={product.productImage}
+                                                                                                            src={product.productImage || product.productUrl}
                                                                                                             alt={product.productName}
-                                                                                                            className="h-48 w-full object-cover"
+                                                                                                            className="h-48 w-full "
                                                                                                 />
+                                                                                                {console.log(product.productUrl)}
                                                                                     </figure>
                                                                                     <div className="card-body">
-                                                                                                <h2 className="card-title">{product.productName}</h2>
+                                                                                                <h2 className="card-title w-fit bg-button-light text-white rounded-2xl px-2 ">{product.productName}</h2>
                                                                                                 <p className="text-sm">{product.productDescription}</p>
                                                                                                 <div className="card-actions justify-between items-center mt-2">
                                                                                                             <span className="text-lg font-semibold text-primary">

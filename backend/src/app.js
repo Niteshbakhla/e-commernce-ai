@@ -15,10 +15,12 @@ const corsOption = {
             credentials: true
 }
 
-const value = config.NODE_ENV === "production" ? config.CLIENT_PROD_URL : config.CLIENT_DEV_URL;
-console.log(value)
 
-app.use(cors(corsOption));
+app.use(cors({
+            origin: corsOption,
+            credentials: true
+}))
+// app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookieParser());
 

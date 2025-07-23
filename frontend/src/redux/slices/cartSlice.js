@@ -11,6 +11,7 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
                         return data.carts;
             } catch (error) {
                         console.log(error.message);
+                        console.log(error, "lol")
             }
 });
 
