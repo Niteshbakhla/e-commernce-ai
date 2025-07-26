@@ -21,7 +21,7 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (id) => {
                         toast.success(data.message);
                         return id; // return the productId to update state
             } catch (error) {
-                        console.log(error);
+                        console.log(error.message);
             }
 });
 
