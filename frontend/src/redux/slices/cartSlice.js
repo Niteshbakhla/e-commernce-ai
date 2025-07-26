@@ -15,7 +15,7 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
 export const addToCart = createAsyncThunk("cart/addToCart", async (id) => {
             try {
                         const { data } = await axiosinstance.post(
-                                    `/v1/user/product/`,
+                                    `/v1/user/product`,
                                     { productId: id, quantity: 1 },
                         );
                         toast.success(data.message);
