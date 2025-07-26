@@ -7,8 +7,7 @@ import axiosinstance from "../../axios/axios";
 
 export const toggleWishlist = createAsyncThunk("wishlist/toggleWishlist", async (productId, { isRejectedWithValue }) => {
             try {
-
-                        const { data } = await axiosinstance.post(`/v1/user/wishlist/${productId}`, {}, { withCredentials: true });
+                        const { data } = await axiosinstance.post(`/v1/user/wishlist/${productId}`, {});
                         if (data.success) {
                                     toast.success(data.message)
                         } else {
