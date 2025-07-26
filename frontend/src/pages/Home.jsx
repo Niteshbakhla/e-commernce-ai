@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion"
 import { useDispatch, useSelector } from "react-redux";
@@ -20,9 +19,9 @@ const HomePage = () => {
             useEffect(() => {
                         const fetchProducts = async () => {
                                     try {
-                                                const { data } = await axiosinstance.get("/v1/user/product", { withCredentials: true })
+                                                const { data } = await axiosinstance.get("/v1/user/product")
                                                 setProducts(data.product);
-                                                console.log(data)
+                                                console.log(import.meta.env.VITE_API_URL)
                                     } catch (err) {
                                                 setError(err.message);
                                     } finally {
@@ -32,7 +31,7 @@ const HomePage = () => {
 
                         fetchProducts();
             }, []);
-
+            console.log(import.meta.env.VITE_API_URL)
             useEffect(() => {
                         const fetchWishlist = async () => {
                                     const { data } = await axiosinstance.get("/v1/user/wishlistid", { withCredentials: true });
@@ -72,7 +71,7 @@ const HomePage = () => {
                                                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
                                                 {!loading &&
                                                             !error &&
-                                                            searchProduct.map((product) => (
+                                                            searchProduct?.map((product) => (
                                                                         <div key={product._id} className="card bg-base-100 shadow-xl border border-black/20">
                                                                                     <figure className="border m-1 border-black/10">
                                                                                                 <img

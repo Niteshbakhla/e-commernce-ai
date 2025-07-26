@@ -32,13 +32,14 @@ const cartSlice = createSlice({
                         cartItems: [],
                         loading: false,
                         isCartItemExist: [],
-                        searchProduct: []
+                        searchProduct: [],
+                        loadingProductId: null
             },
 
             reducers: {
                         setSearchProduct: (state, action) => {
                                     state.searchProduct = action.payload;
-                        }
+                        },
             },
 
             extraReducers: (builder) => {
@@ -48,6 +49,7 @@ const cartSlice = createSlice({
                                     })
                                     .addCase(addToCart.fulfilled, (state, action) => {
                                                 state.loading = false;
+                                                state.loadingProductId = action.payload;
                                                 state.isCartItemExist.push(action.payload);
                                     })
                                     .addCase(fetchCart.pending, (state) => {

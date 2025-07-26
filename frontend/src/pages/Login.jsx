@@ -21,9 +21,7 @@ const Login = () => {
                         e.preventDefault();
                         setIsLoading(true);
                         try {
-                                    const { data } = await axiosinstance.post("/auth/login", user, {
-                                                withCredentials: true,
-                                    });
+                                    const { data } = await axiosinstance.post("/auth/login", user);
                                     toast.success(data.message);
                                     setUser({ email: "", password: "" });
                                     dispatch(setIsLogin(true))
