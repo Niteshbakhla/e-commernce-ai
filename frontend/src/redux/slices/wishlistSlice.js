@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
+import axiosinstance from "../../axios/axios";
 
 
 
 export const toggleWishlist = createAsyncThunk("wishlist/toggleWishlist", async (productId, { isRejectedWithValue }) => {
             try {
 
-                        const { data } = await axios.post(`http://localhost:3000/api/v1/user/wishlist/${productId}`, {}, { withCredentials: true });
+                        const { data } = await axiosinstance.post(`/v1/user/wishlist/${productId}`, {}, { withCredentials: true });
                         if (data.success) {
                                     toast.success(data.message)
                         } else {

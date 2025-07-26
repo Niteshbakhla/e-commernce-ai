@@ -1,24 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
+import axiosinstance from "../../axios/axios";
 
 // Thunks
 export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
             try {
-                        const { data } = await axios.get("http://localhost:3000/api/v1/user/carts", {
+                        const { data } = await axiosinstance.get("/v1/user/carts", {
                                     withCredentials: true,
                         });
                         return data.carts;
             } catch (error) {
                         console.log(error.message);
-                        console.log(error, "lol")
             }
 });
 
 export const addToCart = createAsyncThunk("cart/addToCart", async (id) => {
             try {
-                        const { data } = await axios.post(
-                                    `http://localhost:3000/api/v1/user/product/`,
+                        const { data } = await axiosinstance.post(
+                                    `/v1/user/product/`,
                                     { productId: id, quantity: 1 },
                                     { withCredentials: true }
                         );
